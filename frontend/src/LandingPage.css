@@ -1,0 +1,9 @@
+.landing-root {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #181818;
+  color: #fff;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  scroll-snap-type: y mandatory;
+}

@@ -1,0 +1,35 @@
+.clubs-section {
+  width: 100vw;
+  padding: 6vh 0 4vh 0;
+  text-align: center;
+}
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ff5722;
+  letter-spacing: 2px;
+}
+.clubs-grid {
+  justify-content: center;
+}
+.club-card {
+  min-height: 320px;
+  background: rgba(30,30,30,0.7);
+  border: none;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px #000a;
+  transition: box-shadow 0.3s;
+}
+.club-card:hover {
+  box-shadow: 0 16px 48px #ff5722aa;
+}
+.club-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 1rem auto 0.5rem auto;
+  border-radius: 50%;
+  background: #222;
+  box-shadow: 0 2px 12px #ff5722aa;
+}

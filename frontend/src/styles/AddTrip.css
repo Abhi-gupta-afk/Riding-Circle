@@ -1,0 +1,81 @@
+/* AddTrip Component Styles */
+.add-trip-container {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+}
+
+.add-trip-card {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: none !important;
+  background: white;
+}
+
+.add-trip-card .card-body {
+  padding: 2rem;
+}
+
+.add-trip-form .form-control,
+.add-trip-form .form-select {
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.add-trip-form .form-control:focus,
+.add-trip-form .form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+  outline: none;
+}
+
+.add-trip-form .form-label {
+  color: #495057;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.add-trip-form .btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.add-trip-form .btn-primary {
+  background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+}
+
+.add-trip-form .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 135, 84, 0.4);
+}
+
+.add-trip-form .btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: transparent;
+}
+
+.add-trip-form .btn-outline-secondary:hover {
+  background: #6c757d;
+  border-color: #6c757d;
+  transform: translateY(-1px);
+}
+
+.add-trip-form .form-text {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .add-trip-card .card-body {
+    padding: 1.5rem;
+  }
+  
+  .add-trip-form .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}

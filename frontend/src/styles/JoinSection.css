@@ -1,0 +1,36 @@
+.join-section {
+  width: 100vw;
+  padding: 6vh 0 4vh 0;
+  text-align: center;
+}
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ff5722;
+  letter-spacing: 2px;
+}
+.join-grid {
+  justify-content: center;
+}
+.join-card {
+  min-height: 180px;
+  background: rgba(30,30,30,0.7);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px #000a;
+  padding: 2rem 1rem;
+  transition: box-shadow 0.3s;
+}
+.join-card:hover {
+  box-shadow: 0 16px 48px #ff5722aa;
+}
+.admin-shortcuts, .user-shortcuts {
+  margin-top: 2.5rem;
+}
+.shortcut-card {
+  background: rgba(40,40,40,0.8);
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px #ff5722aa;
+  color: #fff;
+  text-align: center;
+}

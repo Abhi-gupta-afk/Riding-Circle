@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Admin Food API</title>
+</head>
+<body>
+    <h1>Test Admin Food Management</h1>
+    
+    <div>
+        <h2>1. Login as Admin</h2>
+        <button onclick="loginAdmin()">Login as Admin</button>
+        <p id="loginResult"></p>
+    </div>
+    
+    <div>
+        <h2>2. Get All Foods</h2>
+        <button onclick="getAllFoods()">Get All Foods</button>
+        <pre id="foodsResult"></pre>
+    </div>
+    
+    <div>
+        <h2>3. Add New Food</h2>
+        <button onclick="addFood()">Add Test Food</button>
+        <pre id="addResult"></pre>
+    </div>
+
+    <script>
+        let token = '';
+
+        async function loginAdmin() {
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    token = data.token;
+                    document.getElementById('loginResult').innerText = 'Login successful! Token: ' + token.substring(0, 50) + '...';
+                } else {
+                    document.getElementById('loginResult').innerText = 'Login failed: ' + data.message;
+                }
+            } catch (error) {
+                document.getElementById('loginResult').innerText = 'Error: ' + error.message;
+            }
+        }
+
+        async function getAllFoods() {
+            if (!token) {
+                alert('Please login first!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8080/api/admin/foods', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+                document.getElementById('foodsResult').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('foodsResult').innerText = 'Error: ' + error.message;
+            }
+        }
+
+        async function addFood() {
+            if (!token) {
+                alert('Please login first!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8080/api/admin/foods', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'Test Food',
+                        description: 'This is a test food item',
+                        price: 299.99,
+                        category: 'Main Course',
+                        imageUrl: 'https://example.com/test-food.jpg',
+                        available: true
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById('addResult').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('addResult').innerText = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

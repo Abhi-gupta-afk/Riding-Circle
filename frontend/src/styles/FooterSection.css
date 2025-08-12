@@ -1,0 +1,22 @@
+.footer-section {
+  background: #181818;
+  color: #fff;
+  padding: 3rem 0 1rem 0;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  box-shadow: 0 -4px 32px #000a;
+}
+.newsletter h5, .contact-info h5 {
+  color: #ff5722;
+  font-weight: 600;
+}
+.social-icons a {
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+small {
+  color: #ff9800;
+}
