@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
+import { showToast } from '../components/Toast';
 
 const SubscriptionPlans = () => {
   const { 
@@ -18,10 +19,10 @@ const SubscriptionPlans = () => {
   const handleSubscribe = async (planId) => {
     try {
       setProcessingPlan(planId);
-      await subscribeToPlan(planId, selectedPaymentMethod);
-      alert('Subscription successful! Welcome to your new plan.');
+  await subscribeToPlan(planId, selectedPaymentMethod);
+  showToast({ message: 'Subscription successful! Welcome to your new plan.', type: 'success' });
     } catch (error) {
-      alert('Subscription failed: ' + (error.response?.data?.message || error.message));
+  showToast({ message: 'Subscription failed: ' + (error.response?.data?.message || error.message), type: 'error', duration: 5000 });
     } finally {
       setProcessingPlan(null);
     }

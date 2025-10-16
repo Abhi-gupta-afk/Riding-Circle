@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+// Configure axios defaults
+const API_BASE = 'http://localhost:8080';
+const axiosInstance = axios.create({
+  baseURL: API_BASE
+});
+
 const SubscriptionContext = createContext();
 
 export const useSubscription = () => {
@@ -19,7 +25,7 @@ export const SubscriptionProvider = ({ children }) => {
 
   // Get auth token from localStorage
   const getAuthToken = () => {
-    return localStorage.getItem('token');
+    return localStorage.getItem('authToken');
   };
 
   // Fetch user's current subscription
@@ -28,7 +34,7 @@ export const SubscriptionProvider = ({ children }) => {
       const token = getAuthToken();
       if (!token) return;
 
-      const response = await axios.get('/api/subscriptions/my-subscription', {
+      const response = await axiosInstance.get('/api/subscriptions/my-subscription', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUserSubscription(response.data);
@@ -44,7 +50,7 @@ export const SubscriptionProvider = ({ children }) => {
   const fetchAvailablePlans = async () => {
     try {
       console.log('Fetching subscription plans...');
-      const response = await axios.get('/api/subscriptions/plans');
+      const response = await axiosInstance.get('/api/subscriptions/plans');
       console.log('Plans response:', response.data);
       setAvailablePlans(response.data);
     } catch (error) {
@@ -60,7 +66,7 @@ export const SubscriptionProvider = ({ children }) => {
       setLoading(true);
       const token = getAuthToken();
       
-      const response = await axios.post('/api/subscriptions/subscribe', {
+      const response = await axiosInstance.post('/api/subscriptions/subscribe', {
         planId,
         paymentMethod
       }, {
@@ -83,7 +89,7 @@ export const SubscriptionProvider = ({ children }) => {
       setLoading(true);
       const token = getAuthToken();
       
-      await axios.post('/api/subscriptions/cancel', {}, {
+      await axiosInstance.post('/api/subscriptions/cancel', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

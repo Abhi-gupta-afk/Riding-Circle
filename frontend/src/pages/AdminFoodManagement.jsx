@@ -11,15 +11,19 @@ const AdminFoodManagement = () => {
     description: '',
     price: '',
     category: '',
+    cuisine: '',
     imageUrl: '',
-    available: true
+    isVegetarian: false,
+    isVegan: false,
+    isSpicy: false,
+    isActive: true
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   // Get token from localStorage
-  const getAuthToken = () => localStorage.getItem('token');
+  const getAuthToken = () => localStorage.getItem('authToken');
 
   // Fetch all foods
   const fetchFoods = async () => {
@@ -143,8 +147,12 @@ const AdminFoodManagement = () => {
       description: '',
       price: '',
       category: '',
+      cuisine: '',
       imageUrl: '',
-      available: true
+      isVegetarian: false,
+      isVegan: false,
+      isSpicy: false,
+      isActive: true
     });
     setSelectedFood(null);
   };
@@ -155,10 +163,14 @@ const AdminFoodManagement = () => {
     setFormData({
       name: food.name,
       description: food.description,
-      price: food.price.toString(),
-      category: food.category,
+      price: food.price ? food.price.toString() : '',
+      category: food.category || '',
+      cuisine: food.cuisine || '',
       imageUrl: food.imageUrl || '',
-      available: food.available
+      isVegetarian: food.isVegetarian || false,
+      isVegan: food.isVegan || false,
+      isSpicy: food.isSpicy || false,
+      isActive: food.isActive !== undefined ? food.isActive : true
     });
     setShowEditModal(true);
   };
@@ -211,9 +223,15 @@ const AdminFoodManagement = () => {
               <h3>{food.name}</h3>
               <p className="food-description">{food.description}</p>
               <p className="food-category">Category: {food.category}</p>
+              <p className="food-cuisine">Cuisine: {food.cuisine}</p>
               <p className="food-price">₹{food.price}</p>
-              <p className={`food-status ${food.available ? 'available' : 'unavailable'}`}>
-                {food.available ? 'Available' : 'Unavailable'}
+              <div className="food-attributes">
+                {food.isVegetarian && <span className="attribute veg">Vegetarian</span>}
+                {food.isVegan && <span className="attribute vegan">Vegan</span>}
+                {food.isSpicy && <span className="attribute spicy">Spicy</span>}
+              </div>
+              <p className={`food-status ${food.isActive ? 'active' : 'inactive'}`}>
+                {food.isActive ? 'Active' : 'Inactive'}
               </p>
             </div>
             <div className="food-actions">
@@ -298,6 +316,25 @@ const AdminFoodManagement = () => {
                 </select>
               </div>
               <div className="form-group">
+                <label>Cuisine *</label>
+                <select
+                  name="cuisine"
+                  value={formData.cuisine}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Cuisine</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="American">American</option>
+                  <option value="Thai">Thai</option>
+                  <option value="Continental">Continental</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="form-group">
                 <label>Image URL</label>
                 <input
                   type="url"
@@ -310,11 +347,44 @@ const AdminFoodManagement = () => {
                 <label>
                   <input
                     type="checkbox"
-                    name="available"
-                    checked={formData.available}
+                    name="isVegetarian"
+                    checked={formData.isVegetarian}
                     onChange={handleInputChange}
                   />
-                  Available
+                  Vegetarian
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isVegan"
+                    checked={formData.isVegan}
+                    onChange={handleInputChange}
+                  />
+                  Vegan
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isSpicy"
+                    checked={formData.isSpicy}
+                    onChange={handleInputChange}
+                  />
+                  Spicy
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={handleInputChange}
+                  />
+                  Active
                 </label>
               </div>
               <div className="modal-actions">
@@ -400,6 +470,25 @@ const AdminFoodManagement = () => {
                 </select>
               </div>
               <div className="form-group">
+                <label>Cuisine *</label>
+                <select
+                  name="cuisine"
+                  value={formData.cuisine}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Cuisine</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="American">American</option>
+                  <option value="Thai">Thai</option>
+                  <option value="Continental">Continental</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="form-group">
                 <label>Image URL</label>
                 <input
                   type="url"
@@ -412,11 +501,44 @@ const AdminFoodManagement = () => {
                 <label>
                   <input
                     type="checkbox"
-                    name="available"
-                    checked={formData.available}
+                    name="isVegetarian"
+                    checked={formData.isVegetarian}
                     onChange={handleInputChange}
                   />
-                  Available
+                  Vegetarian
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isVegan"
+                    checked={formData.isVegan}
+                    onChange={handleInputChange}
+                  />
+                  Vegan
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isSpicy"
+                    checked={formData.isSpicy}
+                    onChange={handleInputChange}
+                  />
+                  Spicy
+                </label>
+              </div>
+              <div className="form-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={handleInputChange}
+                  />
+                  Active
                 </label>
               </div>
               <div className="modal-actions">

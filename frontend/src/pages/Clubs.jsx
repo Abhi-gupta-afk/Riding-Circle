@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiGet, apiDelete } from '../api';
 import { isAdmin } from '../utils';
+import { showToast } from '../components/Toast';
 
 export default function Clubs() {
   const [clubs, setClubs] = useState([]);
@@ -66,7 +67,7 @@ export default function Clubs() {
   const joinClub = async (clubId) => {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      alert('Please login to join clubs');
+      showToast({ message: 'Please login to join clubs', type: 'info' });
       return;
     }
 
@@ -80,15 +81,15 @@ export default function Clubs() {
 
       if (response.ok) {
         const message = await response.text();
-        alert(message);
+        showToast({ message, type: 'success' });
         setMemberships(prev => ({ ...prev, [clubId]: true }));
       } else {
         const error = await response.text();
-        alert(error);
+        showToast({ message: error, type: 'error' });
       }
     } catch (error) {
       console.error('Error joining club:', error);
-      alert('Failed to join club');
+      showToast({ message: 'Failed to join club', type: 'error' });
     }
   };
 
@@ -106,15 +107,15 @@ export default function Clubs() {
 
       if (response.ok) {
         const message = await response.text();
-        alert(message);
+        showToast({ message, type: 'success' });
         setMemberships(prev => ({ ...prev, [clubId]: false }));
       } else {
         const error = await response.text();
-        alert(error);
+        showToast({ message: error, type: 'error' });
       }
     } catch (error) {
       console.error('Error leaving club:', error);
-      alert('Failed to leave club');
+      showToast({ message: 'Failed to leave club', type: 'error' });
     }
   };
 

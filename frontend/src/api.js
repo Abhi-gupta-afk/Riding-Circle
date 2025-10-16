@@ -1,5 +1,5 @@
 // Centralized API utility for RideCircle frontend
-const API_BASE = '/api';
+const API_BASE = 'http://localhost:8080/api';
 
 export async function apiGet(path) {
   const token = localStorage.getItem('authToken');

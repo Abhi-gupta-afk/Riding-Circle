@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiGet, apiPost } from '../api';
+import { showToast } from '../components/Toast';
 import { getToken } from '../utils';
 
 export default function Restaurants() {
@@ -58,10 +59,11 @@ export default function Restaurants() {
         specialRequests: ''
       });
       
-      alert('Booking confirmed! Check your profile to see all bookings.');
+  showToast({ message: 'Booking confirmed! Check your profile.', type: 'success' });
     } catch (err) {
       console.error('Error creating booking:', err);
-      setError('Failed to create booking');
+  setError('Failed to create booking');
+  showToast({ message: 'Failed to create booking', type: 'error' });
     }
   };
 

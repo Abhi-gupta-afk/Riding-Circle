@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiGet, apiDelete } from '../api';
 import { isAdmin } from '../utils';
+import { showToast } from '../components/Toast';
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
@@ -66,7 +67,7 @@ export default function Trips() {
   const registerForTrip = async (tripId, plan = 'NORMAL') => {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      alert('Please login to register for trips');
+      showToast({ message: 'Please login to register for trips', type: 'info' });
       return;
     }
 
@@ -80,15 +81,15 @@ export default function Trips() {
 
       if (response.ok) {
         const message = await response.text();
-        alert(message);
+        showToast({ message, type: 'success' });
         setRegistrations(prev => ({ ...prev, [tripId]: true }));
       } else {
         const error = await response.text();
-        alert(error);
+        showToast({ message: error, type: 'error' });
       }
     } catch (error) {
       console.error('Error registering for trip:', error);
-      alert('Failed to register for trip');
+      showToast({ message: 'Failed to register for trip', type: 'error' });
     }
   };
 
@@ -106,15 +107,15 @@ export default function Trips() {
 
       if (response.ok) {
         const message = await response.text();
-        alert(message);
+        showToast({ message, type: 'success' });
         setRegistrations(prev => ({ ...prev, [tripId]: false }));
       } else {
         const error = await response.text();
-        alert(error);
+        showToast({ message: error, type: 'error' });
       }
     } catch (error) {
       console.error('Error unregistering from trip:', error);
-      alert('Failed to unregister from trip');
+      showToast({ message: 'Failed to unregister from trip', type: 'error' });
     }
   };
 

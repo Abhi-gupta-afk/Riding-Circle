@@ -19,6 +19,7 @@ import SubscriptionPlans from './pages/SubscriptionPlans';
 import TestSubscriptionAPI from './pages/TestSubscriptionAPI';
 import AdminFoodManagement from './pages/AdminFoodManagement';
 import AppNavbar from './components/Navbar';
+import Footer from './components/Footer';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 
 export default function AppRouter() {
@@ -27,6 +28,8 @@ export default function AppRouter() {
       <Router>
         <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
           <AppNavbar />
+          {/* Spacer for sticky navbar height */}
+          <div className="h-0 md:h-0" aria-hidden="true"></div>
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -51,6 +54,9 @@ export default function AppRouter() {
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
+          <Footer />
+          {/* Toast portal root */}
+          <div id="toast-root" className="fixed top-4 right-4 z-[9999]"></div>
         </div>
       </Router>
     </SubscriptionProvider>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiPost } from '../api';
+import { showToast } from '../components/Toast';
 
 export default function Register() {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
@@ -54,8 +55,10 @@ export default function Register() {
         roles: registerAsAdmin ? ['ADMIN'] : ['USER']
       };
       console.log('Sending registration data:', registrationData);
-      await apiPost('/auth/signup', registrationData);
-      setSuccess(`Registration successful! ${registerAsAdmin ? 'Admin account' : 'User account'} created.`);
+  await apiPost('/auth/signup', registrationData);
+  const msg = `Registration successful! ${registerAsAdmin ? 'Admin account' : 'User account'} created. We\'ve sent you a welcome email.`;
+  setSuccess(msg);
+  showToast({ message: 'Welcome! A confirmation email has been sent.', type: 'success' });
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       console.error('Registration error:', err);
